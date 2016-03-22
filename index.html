@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <title>corporate平台</title>
+    <meta name="keywords" content=" " />
+    <meta name="description" content="  " />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1.0, user-scalable=0" /> -->
+    <link rel="shortcut icon" href="dist/images/ico/logo.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="./dist/css/icon/iconfont.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="./dist/css/semantic.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./dist/css/semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="./dist/css/style.min.css" />
+
+    <script type="text/javascript">
+        var phoneWidth = parseInt(window.screen.width);
+        var phoneScale = phoneWidth / 640;
+        var ua = navigator.userAgent;
+        if (/Android (\d+\.\d+)/.test(ua)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+            }
+        } /*else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }*/
+    </script>
+</head>
+
+<body id="app">
+<!--nav-->
+<div class="m-nav">
+    <div class="ui inverted sidebar left vertical menu visible">
+        <div class="logo item">
+            <a class="ui logo icon image" href="#!/">
+                <!-- <i class="icon icons-logo-c"></i> -->
+                <img width="30" src="dist/images/corporate-logo.png" alt="corporate">
+            </a>
+            <a href="#!/">
+                <b>corporate</b>
+            </a>
+        </div>
+        <div class="border-img"></div>
+
+        <a class="item" v-link="{path: '/user/list'}">
+            <span class="content">User</span>
+        </a>
+
+        <a class="item" v-link="{path: '/client/list'}">
+            <span class="content">Clients</span>
+        </a>
+
+        <div class="item">
+            Product
+            <div class="menu">
+                <a class="item">Email</a>
+                <a class="item">SMS</a>
+                <a class="item">Mrtb</a>
+                <a class="item">SMG</a>
+                <a class="item">Journey</a>
+            </div>
+        </div>
+
+        <a class="item">
+            <span class="content">Summary</span>
+        </a>
+        <a class="item">
+            <span class="content">Monitor</span>
+        </a>
+        <a class="item" v-link="{path: '/account/list'}">
+            <span class="content">Account</span>
+        </a>
+
+    </div>
+</div>
+<!--nav end-->
+
+
+<div class="m-body">
+    <!--head-->
+    <div class="m-head">
+        <div class="m-topic">
+            <div class="showNav">
+                <i class="icon icons-list"></i>
+            </div>
+            <div class="ui breadcrumb">
+                <!-- <i class="icon icons-position"></i> -->
+                <template v-if="title.second !== ''">
+                    <a class="section" v-link="title.firstLink">{{title.first}}</a>
+                    <div class="divider">/</div>
+                    <div class="active section">{{title.second}}</div>
+                </template>
+                <template v-if="title.second === ''">
+                    <div class="active section">{{title.first}}</div>
+                </template>
+            </div>
+            <div class="f-fr userMsg">
+                <div class="ui floating pointing dropdown button">
+                    <div class="text f-toe" title="{{authorize.user_email}}">{{authorize.user_email}}</div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <template v-if="!!authorize.user_email">
+                            <logged-user></logged-user>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--head end-->
+
+    <!--view-->
+    <div class="m-view">
+        <!-- <p><label>path: <br /></label>{{$route.path}}</p><br />
+        <p><label>params: <br /></label>{{$route.params | json}}</p><br />
+        <p><label>query: <br /></label>{{$route.query | json}}</p><br />
+        <p><label>router: <br /></label>{{$route.router}}</p><br />
+        <p><label>matched: <br /></label>{{$route.matched | json}}</p><br />
+        <p><label>matched: <br /></label>{{$route.matched[0].handler.fullPath}}</p><br />
+        <p><label>name: <br /></label>{{$route.name}}</p><br /> -->
+        <router-view :datas="datas"></router-view>
+    </div>
+    <!--view end-->
+
+    <!--foot-->
+    <div class="m-foot f-tar">
+        Copyright © 2000 - 2016 by webpower
+    </div>
+    <!--foot end-->
+
+    <div class="m-navShade"></div>
+    <!-- <div class="m-ctShade"></div> -->
+
+    <div class="ui small modal m-alertMsg">
+        <div class="ui icon header">
+            <i v-show="alertmsg.msgType === 'info'" class="info circle icon"></i>
+            <i v-show="alertmsg.msgType === 'success'" class="check circle icon"></i>
+            <i v-show="alertmsg.msgType === 'false'" class="warning sign icon"></i>
+            {{alertmsg.msgType}}
+            {{alertmsg.msg}}
+        </div>
+    </div>
+</div>
+
+<script src="./dist/js/plugins/vue/vue.js"></script>
+<script src="./dist/js/plugins/vue/vue-router.js"></script>
+<script src="./dist/js/plugins/jquery/jquery-1.11.1.min.js"></script>
+<script src="./dist/js/plugins/jquery/jquery.cookie.js"></script>
+<script src="./dist/js/corporate.min.js"></script>
+<script src="./dist/js/semantic.min.js"></script>
+</body>
+
+</html>
